@@ -1,7 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {MoviePlayStyles} from './style.js';
+import {UXguideStyle} from './style.js';
 
 const MoviePlay = (props) => {
+   
     if(!props.film){
         return <MoviePlayStyles>
                 <p>Something went wrong...</p>
@@ -23,9 +26,14 @@ const MoviePlay = (props) => {
         };
         num===0?switchScreen(ad):switchScreen(rem);
     }
-    return (
-        
+
+    return (        
         <MoviePlayStyles className='playerframe'>
+  
+            <UXguideStyle>
+                <div>Watch: <span>{props.film.snippet.title}</span></div>
+            </UXguideStyle>
+             
             <div className="title">
                 <h2 onClick={(e)=>{setSize(0)}}>BIGGER</h2>
                 <h2 onClick={(e)=>{setSize(1)}}>SMALLER</h2>
@@ -38,10 +46,14 @@ const MoviePlay = (props) => {
             <div className="description">
                     <p>{movie.snippet.description}</p>
             </div>
-        </MoviePlayStyles>
-        
+        </MoviePlayStyles>    
     );
-  
 }
 
-export default MoviePlay;
+function mapStateToProps(state){
+    return {
+        film: state.activeFilm
+    };
+}
+
+export default connect(mapStateToProps)(MoviePlay);

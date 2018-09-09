@@ -1,17 +1,22 @@
 import React from 'react';
 import {AlsoItemStyle} from './style';
 
-
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { selectFilmAction } from '../../../actions/select-movie';
 
 class AlsoItem extends React.Component {
     render(){
+        
         if(!this.props.movies){
             return(<AlsoItemStyle>Currently no other proposals are available.</AlsoItemStyle>)
         } 
         
         var proposalList = this.props.movies.map((movie, idx)=>{
             return(
-                <AlsoItemStyle key={idx} onClick={(e)=>{this.props.selectFilm(movie)}}>
+                <AlsoItemStyle key={idx}
+                    onClick={(e)=>{this.props.selectFilm(movie)}}
+                >
                     <div className="imgposition">
                         <img alt=" " src={movie.snippet.thumbnails.default.url}/>
                     </div>   
@@ -28,4 +33,17 @@ class AlsoItem extends React.Component {
         );
     }
 }
-export default AlsoItem;
+
+function mapStateToProps(state) {
+    return {
+        movies: state.proposalFilms
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({selectFilm: selectFilmAction}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlsoItem);
+
+

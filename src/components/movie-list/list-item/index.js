@@ -1,17 +1,26 @@
 import React from 'react';
 import {MovieItemStyle} from './style';
 
+import {selectFilmAction} from './../../../actions/select-movie.js';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+
+
 const MovieItem = (props) => {
         return(
-            <MovieItemStyle onClick={props.onClick}>
-                <img alt = '' src={props.snippet.thumbnails.default.url}/>
+            <MovieItemStyle onClick={(e)=>{props.selectFilm(props.video)}}> 
+                <img alt = '' src={props.video.snippet.thumbnails.default.url}/>
                 <div>
-                    <h1>{props.snippet.title}</h1>
-                    <p>{props.snippet.description}</p>
+                    <h1>{props.video.snippet.title}</h1>
+                    <p>{props.video.snippet.description}</p>
                 </div>
             </MovieItemStyle>
         );
     
 }
 
-export default MovieItem;
+function mapDispatchToProps (dispatch) {
+    return bindActionCreators({selectFilm: selectFilmAction}, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(MovieItem);

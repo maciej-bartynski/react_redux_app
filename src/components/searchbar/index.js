@@ -1,37 +1,18 @@
 import {HeaderStyle} from './style.js';
 import {SearchPanelStyle} from './style.js';
-import {UXguideStyle} from './style.js';
 import {LogoStyle} from './style.js'
 import React from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-library.add(faSearch)
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { searchTermAction } from './../../actions/search-term';
+
+library.add(faSearch);
+
 class SearchBar extends React.Component{
-    
-    constructor(props){
-        super(props);
-        this.state={
-            searchTerm: ''
-        }
-        this.setTermChange=this.searchTermChange.bind(this);
-    }
-
-    UXguide(){
-        return( 
-            this.state.searchTerm.trim().length>0?
-            <UXguideStyle>
-                <div>Playlist: <span>{' '+this.state.searchTerm}</span></div>
-                <div>Watch: <span>{this.props.title}</span></div>
-            </UXguideStyle>
-            :
-            <UXguideStyle>
-                <div>Random playlist:</div>
-                <div>Watch: <span>{this.props.title}</span></div>
-            </UXguideStyle>
-        );
-    }
-
     searchTermChange(e){
         const ad = item => {
             item.classList.contains('isActive')?
@@ -41,7 +22,7 @@ class SearchBar extends React.Component{
         };
         const rem = item => {
             item.classList.remove('isActive');
-            item.value?item.value=null:item;
+            if(item.value){item.value=null};
         };
         const switchVisuality = (fun) => {
             fun(document.querySelectorAll('.switch_visuality')[0]);
@@ -55,15 +36,14 @@ class SearchBar extends React.Component{
             switchVisuality(ad);
         } else {
             switchVisuality(rem);
-            this.setState({searchTerm: val})
-            this.props.changeTerm(val);
+            this.props.searchTerm(val)
         }
     }
 
     render(){
         return(
-
             <HeaderStyle className="headerbar">
+                
                 <LogoStyle className="switch_visuality">
                     <span>H</span>ome<span>C</span>inema
                 </LogoStyle>
@@ -71,21 +51,24 @@ class SearchBar extends React.Component{
                 <SearchPanelStyle className="switch_visuality">
                     <div className="search-belt switch_visuality">
                         <input className="inputsearch switch_visuality"
-                        onKeyUp={(e)=>{if(e.keyCode===13){this.setTermChange(e)}}}
+                            onKeyUp={(e)=>{if(e.keyCode===13){this.searchTermChange(e)}}}
                         />
                         <div
-                        className="icon switch_visuality"
-                        onClick={(e)=>{this.setTermChange(e)}}
+                            className="icon switch_visuality"
+                            onClick={(e)=>{this.searchTermChange(e)}}
                         >
                             <FontAwesomeIcon icon={faSearch}/>
                         </div>
                     </div>            
                 </SearchPanelStyle>
 
-                {this.UXguide()}
             </HeaderStyle>
         );
     }
 }
 
-export default SearchBar;
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({searchTerm: searchTermAction}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar);
