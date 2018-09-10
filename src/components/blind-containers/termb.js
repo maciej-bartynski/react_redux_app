@@ -2,7 +2,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {proposalTermAction} from './../actions/proposal-term';
+import {proposalTermAction} from './../../actions/proposal-term';
 
 const ProposalTerm = (props) => {
     const word = props.term;

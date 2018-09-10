@@ -6,9 +6,9 @@ import Footer from './components/footer/index';
 import {RightColumnWrapper} from './app-style';
 import {AppContainer} from './app-style';
 import React, { Component } from 'react';
-import Request from './components/request.js';
-import Requestb from './components/requestb.js';
-import ProposalTerm from './components/termb.js';
+import Request from './components/blind-containers/request.js';
+import Requestb from './components/blind-containers/requestb.js';
+import ProposalTerm from './components/blind-containers/termb.js';
 
 class App extends Component {
   

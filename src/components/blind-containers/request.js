@@ -3,7 +3,7 @@ import React from 'react';
 import YoutubeRequest from 'youtube-api-search';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {downloadFilmsAction} from './../actions/download-films';
+import {downloadFilmsAction} from './../../actions/download-films';
 
 const API_KEY = 'AIzaSyDNPEoPjVzJMueLI8siyZF9AKnvdWUt4T4';
 

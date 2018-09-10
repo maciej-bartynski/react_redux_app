@@ -8,6 +8,11 @@ class Footer extends React.Component {
                 <div className="footer-title">Crafted by Maciej Bartyński</div>
                 <div className="footer-title">maciek.bartynski@gmail.com</div>
                 <div className="footer-title">784 482 159 (Poland)</div>
+                <div className="footer-tools">
+                    <p>Redux</p>
+                    <p>Action creators</p>
+                    <p>Combined root reducer</p>
+                </div>
                 <div className="footer-desc">
                     <h6>What's the purpose of inventing Youtube again?</h6>
                     <h6>

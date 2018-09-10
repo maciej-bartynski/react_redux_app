@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 
 
 const MovieItem = (props) => {
+
         return(
             <MovieItemStyle onClick={(e)=>{props.selectFilm(props.video)}}> 
                 <img alt = '' src={props.video.snippet.thumbnails.default.url}/>

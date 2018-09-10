@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const MoviePlayStyles = styled.div`
+    transition: all 500ms;
+    opacity: 0.5;
+    &.fadein {
+        opacity: 1;    
+    }
     
     position: relative;
     border: solid 1px rgba(0,0,0,0.1);
@@ -74,6 +79,26 @@ export const MoviePlayStyles = styled.div`
 
     @media only screen and (max-width: 600px){
         width: 100%;
+    }
+    &.fixed {
+        position: fixed;
+        right: 0;
+        top: 0;  
+        background: black; 
+        z-index: 999;
+        width: 20%;
+        @media only screen and (max-width: 600px){
+            width: 50%;
+        }
+        .UXguide {
+            display: none;
+        }
+        .title {
+            display: none;
+        }
+        .description {
+            display: none;
+        }
     }
 `;
 
